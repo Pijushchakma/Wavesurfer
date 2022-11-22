@@ -335,6 +335,17 @@ function App() {
   const skipForward = (()=>{
     wavesurferRef.current.skipForward();
   });
+  const handlePlayRegion  =((event)=>{
+    alert("In play region");
+    regions.map((region)=>{
+      if(region.id === event.target.value){
+        wavesurferRef.current.regions.list[region.id],play();
+      }
+
+    });
+
+
+  });
   return (
     <div className="App">
       <WaveSurfer plugins={plugins} onMount={handleWSMount}>
@@ -397,6 +408,17 @@ function App() {
         </label>
         <input type="submit" value="Submit" />
       </form>
+      <label>
+          Select Which region you want to play
+      </label>
+        
+      <select value="3" onChange = {handlePlayRegion} >
+        {regions.map((region)=>{
+          <option value= {region.id} >{region.id}</option>
+          alert(region.id);
+        })}
+      </select>
+          
     </div>
   );
 }
