@@ -54,7 +54,7 @@ function App() {
   const [zoom,setZoom] = useState(1);
   
   useEffect(()=>{
-    alert("Called");
+    //alert("Called");
     regions.forEach(region =>{
       let option = document.createElement('option')
       option.value = region.id
@@ -73,7 +73,7 @@ function App() {
       const textID = ''.concat(text.id,'text');
       const element = document.getElementById(textID);
       if(element){/// Jodi er age kono element ei ID te create hoy then remove it first then create it again
-        console.log("I am here");
+       // console.log("I am here");
         element.remove();
       }
       let textbox = document.createElement('input');
@@ -395,27 +395,21 @@ function App() {
       }
     ]);
   }, [markers, wavesurferRef]);
-
-
-  
   const playFirstRegion = useCallback(()=>{ // playing the first region. it can be made dynamic simply by accepting props
     let start, end;
     start =regions[0].start;
     end = regions[0].end;
-    console.log(" start : "+ start +" end : "+end); /// this was done when I couldn't play a certain region. so I grabed the start and end time and then passed to play method
-    console.log(typeof(start),typeof(end));
+   // console.log(" start : "+ start +" end : "+end); /// this was done when I couldn't play a certain region. so I grabed the start and end time and then passed to play method
+    //console.log(typeof(start),typeof(end));
     wavesurferRef.current.regions.list[regions[0].id].play()
-  
   },[regions]);
   const playFromStart = (()=>{
     wavesurferRef.current.play(0);
-
   });
   const playLoop = useCallback(()=>{
     //alert("in play loop");
     wavesurferRef.current.regions.list[regions[0].id].playLoop();
   });
-
   const removeLastRegion = useCallback(() => {
     let nextRegions = [...regions];
     nextRegions.pop();
@@ -582,7 +576,8 @@ function App() {
   });
   return (
     <div className="App">
-      <WaveSurfer plugins={plugins} onMount={handleWSMount}>
+      <div>
+        <WaveSurfer plugins={plugins} onMount={handleWSMount}>
         <WaveForm id="waveform" cursorColor="transparent">
           {regions.map((regionProps) => (
             <Region
@@ -608,12 +603,18 @@ function App() {
               />
             );
           })}
-           {/* <div>
+           <div>
           hello
-        </div> */}
+        </div>
         </WaveForm>
+        {/* <div>
+          try case it is 1
+        </div> */}
        
         <div id="timeline" />
+        {/* <div>
+          try case it is 2
+        </div> */}
       </WaveSurfer>
       <Buttons>
         <Button onClick={generateRegion}>Generate region</Button>
@@ -692,6 +693,8 @@ function App() {
 						/>
 					</div>
           <Button onClick={handleTrim}> Trim </Button>
+      </div>
+      
          
       {/* <div class="dropup">
         <button className="dropbtn"style={{borderLeft:'1px solid #0d8bf2'}}><i className="fa fa-caret-up"></i></button>
